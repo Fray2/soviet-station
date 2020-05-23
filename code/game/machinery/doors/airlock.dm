@@ -31,6 +31,11 @@ GLOBAL_LIST_EMPTY(wedge_icon_cache)
 	var/assembly_type = /obj/structure/door_assembly
 	var/mineral = null
 	var/justzap = 0
+	var/connected = TRUE
+	var/roundstart = FALSE
+	var/list/connections = list("0", "0", "0", "0")
+	var/list/wall_connections = list("0", "0", "0", "0")
+	var/construction_stage
 	var/safe = 1
 	normalspeed = 1
 	var/obj/item/weapon/airlock_electronics/electronics = null
@@ -693,7 +698,7 @@ There are 9 wires.
 			if(overlays.len)
 				cut_overlays()
 			if(p_open)
-				flick("o_door_opening", src)  //can not use flick due to BYOND bug updating overlays right before flicking
+				flick("o_door_opening", src)  //can not use flick due to BYOND bug updating over-lays right before flicking
 				update_icon()
 			else
 				flick("door_opening", src)//[stat ? "_stat":]
@@ -1399,4 +1404,5 @@ There are 9 wires.
 		damage *= 0.66 //The bolts reinforce the door, reducing damage taken
 
 	return ..(damage)
+
 

@@ -1,9 +1,3 @@
-#define CAT_NORMAL 1
-#define CAT_HIDDEN 2  // also used in corresponding wires/vending.dm
-#define CAT_COIN   4
-
-#define CUSTOM_VENDOMAT_MODELS list("Generic" = "generic", "Security" = "sec", "Electronics" = "cart", "Research" = "robotics", "Medical" = "med", "Engineering" = "engivend", "Engineering 2" = "engi", "Tools" = "tool", "Shady" = "sovietsoda", "Fridge" = "smartfridge", "Alcohol" = "boozeomat", "Frozen Star" = "weapon", "NeoTheo" = "teomat", "Asters Power Cells" = "powermat", "Asters Disks" = "discomat")
-
 /**
  *  Datum used to hold information about a product in a vending machine
  */
@@ -92,7 +86,7 @@
 
 	var/icon_vend //Icon_state when vending
 	var/icon_deny //Icon_state when denying access
-	var/icon_type //For overlays after remodeling a custom vending machine
+	var/icon_type //For over-lays after remodeling a custom vending machine
 
 	// Power
 	use_power = 1
@@ -961,7 +955,7 @@
 						/obj/item/weapon/reagent_containers/food/drinks/tea/black = 10)
 	vend_delay = 15
 	idle_power_usage = 211 //refrigerator - believe it or not, this is actually the average power consumption of a refrigerated vending machine according to NRCan.
-	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?;Care for a cup of coffe? It's Irish.;Whiskey for your sorrows, Beer for your break."
+	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?;Care for a cup of coffee? It's Irish.;Whiskey for your sorrows, Beer for your break."
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"
 	auto_price = FALSE
 
@@ -976,6 +970,167 @@
 	contraband = list(/obj/item/device/lighting/toggleable/flashlight = 5,
 						/obj/item/device/assembly/timer = 2)
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
+	auto_price = FALSE
+
+/obj/machinery/vending/signal_electronics
+	name = "Common electronics"
+	products = list(
+		/obj/item/device/assembly/signaler = 60,
+		/obj/item/device/assembly/prox_sensor = 25,
+		/obj/item/device/assembly/igniter = 25,
+		/obj/item/device/assembly/timer = 25,
+		/obj/item/device/assembly/infra = 25,
+		/obj/item/device/assembly/voice = 25,
+		/obj/item/device/transfer_valve = 25,
+		/obj/item/device/text_to_speech = 25,
+		/obj/item/weapon/tool/screwdriver  = 6,
+		/obj/item/weapon/cartridge/signal = 10)
+	contraband = list(/obj/item/device/debugger = 5)
+	product_ads = "Sparks!;Everything you need!"
+	auto_price = FALSE
+
+/obj/machinery/vending/integrated_electronics_cases
+	name = "Integrated electronics cases and tools"
+	products = list(
+		/obj/item/weapon/implant/integrated_circuit = 20,
+		/obj/item/device/electronic_assembly = 20,
+		/obj/item/device/electronic_assembly/drone = 10,
+		/obj/item/device/electronic_assembly/medium = 10,
+		/obj/item/device/electronic_assembly/large = 10,
+		/obj/item/device/integrated_electronics/wirer = 6,
+		/obj/item/device/integrated_electronics/debugger = 6,
+		/obj/item/weapon/tool/screwdriver  = 6,
+		/obj/item/weapon/tool/crowbar = 6,
+		/obj/item/weapon/implanter = 6)
+	product_ads = "Automation for people!;Stainless steel!"
+	auto_price = FALSE
+
+/obj/machinery/vending/integrated_electronics
+	name = "Integrated electronics"
+	products = list(
+		/obj/item/integrated_circuit/input/button = 40,
+		/obj/item/integrated_circuit/input/toggle_button = 40,
+		/obj/item/integrated_circuit/input/numberpad = 40,
+		/obj/item/integrated_circuit/input/textpad = 40,
+		/obj/item/integrated_circuit/input/med_scanner = 40,
+		/obj/item/integrated_circuit/input/adv_med_scanner = 40,
+		/obj/item/integrated_circuit/input/local_locator = 40,
+		/obj/item/integrated_circuit/input/adjacent_locator = 40,
+		/obj/item/integrated_circuit/input/signaler = 40,
+		/obj/item/integrated_circuit/input/EPv2 = 40,
+		/obj/item/integrated_circuit/input/gps = 40,
+		/obj/item/integrated_circuit/input/microphone = 40,
+		/obj/item/integrated_circuit/input/sensor = 40,
+
+		/obj/item/integrated_circuit/output/screen/medium = 40,
+		/obj/item/integrated_circuit/output/screen/large = 40,
+		/obj/item/integrated_circuit/output/screen = 40,
+		/obj/item/integrated_circuit/output/light/advanced = 40,
+		/obj/item/integrated_circuit/output/light = 40,
+		/obj/item/integrated_circuit/output/sound/beeper = 40,
+		/obj/item/integrated_circuit/output/sound/beepsky = 40,
+		/obj/item/integrated_circuit/output/text_to_speech = 40,
+		/obj/item/integrated_circuit/output/video_camera = 40,
+		/obj/item/integrated_circuit/output/led = 40,
+		/obj/item/integrated_circuit/output/led/red = 40,
+		/obj/item/integrated_circuit/output/led/orange = 40,
+		/obj/item/integrated_circuit/output/led/yellow = 40,
+		/obj/item/integrated_circuit/output/led/green = 40,
+		/obj/item/integrated_circuit/output/led/blue = 40,
+		/obj/item/integrated_circuit/output/led/purple = 40,
+		/obj/item/integrated_circuit/output/led/cyan = 40,
+		/obj/item/integrated_circuit/output/led/white = 40,
+		/obj/item/integrated_circuit/output/led/pink = 40,
+
+		/obj/item/integrated_circuit/manipulation/weapon_firing = 10,
+		/obj/item/integrated_circuit/manipulation/locomotion = 10,
+		/obj/item/integrated_circuit/reagent/smoke = 40,
+		/obj/item/integrated_circuit/reagent/injector = 40,
+		/obj/item/integrated_circuit/reagent/pump = 40,
+		/obj/item/integrated_circuit/reagent/storage/cryo = 40,
+		/obj/item/integrated_circuit/reagent/storage = 40,
+
+		/obj/item/integrated_circuit/passive/power/solar_cell = 40,
+		/obj/item/integrated_circuit/passive/power/metabolic_siphon/synthetic = 40,
+		/obj/item/integrated_circuit/passive/power/metabolic_siphon = 40,
+		/obj/item/integrated_circuit/passive/power/relay/large = 40,
+		/obj/item/integrated_circuit/passive/power/relay = 40,
+		/obj/item/integrated_circuit/power/transmitter/large = 40,
+		/obj/item/integrated_circuit/power/transmitter = 40,
+
+		/obj/item/integrated_circuit/logic/binary/equals = 40,
+		/obj/item/integrated_circuit/logic/binary/not_equals = 40,
+		/obj/item/integrated_circuit/logic/binary/and = 40,
+		/obj/item/integrated_circuit/logic/binary/or = 40,
+		/obj/item/integrated_circuit/logic/binary/less_than = 40,
+		/obj/item/integrated_circuit/logic/binary/less_than_or_equal = 40,
+		/obj/item/integrated_circuit/logic/binary/greater_than = 40,
+		/obj/item/integrated_circuit/logic/binary/greater_than_or_equal = 40,
+		/obj/item/integrated_circuit/logic/unary/not = 40,
+
+		/obj/item/integrated_circuit/time/ticker = 40,
+		/obj/item/integrated_circuit/time/ticker/slow = 40,
+		/obj/item/integrated_circuit/time/ticker/fast = 40,
+		/obj/item/integrated_circuit/time/clock = 40,
+		/obj/item/integrated_circuit/time/delay/tenth_sec = 40,
+		/obj/item/integrated_circuit/time/delay/half_sec = 40,
+		/obj/item/integrated_circuit/time/delay/one_sec = 40,
+		/obj/item/integrated_circuit/time/delay = 40,
+		/obj/item/integrated_circuit/time/delay/five_sec = 40,
+		/obj/item/integrated_circuit/time/delay/custom = 40,
+
+		/obj/item/integrated_circuit/arithmetic/addition = 40,
+		/obj/item/integrated_circuit/arithmetic/subtraction = 40,
+		/obj/item/integrated_circuit/arithmetic/multiplication = 40,
+		/obj/item/integrated_circuit/arithmetic/division = 40,
+		/obj/item/integrated_circuit/arithmetic/exponent = 40,
+		/obj/item/integrated_circuit/arithmetic/sign = 40,
+		/obj/item/integrated_circuit/arithmetic/round = 40,
+		/obj/item/integrated_circuit/arithmetic/absolute = 40,
+		/obj/item/integrated_circuit/arithmetic/average = 40,
+		/obj/item/integrated_circuit/arithmetic/pi = 40,
+		/obj/item/integrated_circuit/arithmetic/random = 40,
+		/obj/item/integrated_circuit/arithmetic/square_root = 40,
+		/obj/item/integrated_circuit/arithmetic/modulo = 40,
+
+		/obj/item/integrated_circuit/trig/sine = 40,
+		/obj/item/integrated_circuit/trig/cosine = 40,
+		/obj/item/integrated_circuit/trig/tangent = 40,
+		/obj/item/integrated_circuit/trig/cotangent = 40,
+		/obj/item/integrated_circuit/trig/cosecant = 40,
+		/obj/item/integrated_circuit/trig/secant = 40,
+
+		/obj/item/integrated_circuit/smart/basic_pathfinder = 10,
+
+		/obj/item/integrated_circuit/memory = 40,
+		/obj/item/integrated_circuit/memory/medium = 40,
+		/obj/item/integrated_circuit/memory/large = 40,
+		/obj/item/integrated_circuit/memory/huge = 40,
+		/obj/item/integrated_circuit/memory/constant = 40,
+
+		/obj/item/integrated_circuit/transfer/multiplexer/medium = 40,
+		/obj/item/integrated_circuit/transfer/multiplexer/large = 40,
+		/obj/item/integrated_circuit/transfer/multiplexer/huge = 40,
+		/obj/item/integrated_circuit/transfer/multiplexer = 40,
+		/obj/item/integrated_circuit/transfer/demultiplexer/medium = 40,
+		/obj/item/integrated_circuit/transfer/demultiplexer/large = 40,
+		/obj/item/integrated_circuit/transfer/demultiplexer/huge = 40,
+		/obj/item/integrated_circuit/transfer/splitter/medium = 40,
+		/obj/item/integrated_circuit/transfer/splitter/large = 40,
+		/obj/item/integrated_circuit/transfer/splitter = 40,
+		/obj/item/integrated_circuit/transfer/activator_splitter/medium = 40,
+		/obj/item/integrated_circuit/transfer/activator_splitter/large = 40,
+		/obj/item/integrated_circuit/transfer/activator_splitter = 40,
+		/obj/item/integrated_circuit/converter/num2text = 40,
+		/obj/item/integrated_circuit/converter/text2num = 40,
+		/obj/item/integrated_circuit/converter/ref2text = 40,
+		/obj/item/integrated_circuit/converter/lowercase = 40,
+		/obj/item/integrated_circuit/converter/uppercase = 40,
+		/obj/item/integrated_circuit/converter/concatenatior = 40,
+		/obj/item/integrated_circuit/converter/radians2degrees = 40,
+		/obj/item/integrated_circuit/converter/degrees2radians = 40,
+		/obj/item/integrated_circuit/converter/abs_to_rel_coords = 40)
+	product_ads = "Automation for people!;Hack them all!"
 	auto_price = FALSE
 
 /obj/machinery/vending/coffee
@@ -1050,8 +1205,6 @@
 	/obj/item/ammo_magazine/pistol/practice = 10,
 	/obj/item/ammo_magazine/hpistol/practice = 10,
 	/obj/item/ammo_magazine/ammobox/pistol/practice = 15,
-	/obj/item/ammo_magazine/a10mm/rubber = 10,
-	/obj/item/ammo_magazine/ammobox/a10mm/rubber = 10,
 	/obj/item/ammo_magazine/slmagnum/rubber = 10,
 	/obj/item/ammo_magazine/ammobox/magnum/rubber = 10,
 	/obj/item/ammo_magazine/slmagnum/practice = 10,
@@ -1067,8 +1220,6 @@
 	/obj/item/ammo_magazine/slpistol = 20,
 	/obj/item/ammo_magazine/smg = 15,
 	/obj/item/ammo_magazine/ammobox/pistol =20,
-	/obj/item/ammo_magazine/a10mm = 20,
-	/obj/item/ammo_magazine/ammobox/a10mm = 20,
 	/obj/item/ammo_magazine/slmagnum = 15,
 	/obj/item/ammo_magazine/ammobox/magnum = 15,
 	/obj/item/weapon/gun/projectile/automatic/mac = 2,
@@ -1081,8 +1232,8 @@
 
 	prices = list(/obj/item/device/flash = 200,
 	/obj/item/weapon/reagent_containers/spray/pepper = 100,
-	/obj/item/weapon/gun/projectile/olivaw = 500,
-	/obj/item/weapon/gun/projectile/giskard = 600,
+	/obj/item/weapon/gun/projectile/olivaw = 700,
+	/obj/item/weapon/gun/projectile/giskard = 500,
 	/obj/item/weapon/gun/projectile/colt = 700,
 	/obj/item/weapon/gun/energy/gun/martin = 500,
 	/obj/item/weapon/gun/projectile/revolver/detective = 400,
@@ -1098,14 +1249,10 @@
 	/obj/item/ammo_magazine/pistol/practice = 50,
 	/obj/item/ammo_magazine/hpistol/practice = 80,
 	/obj/item/ammo_magazine/ammobox/pistol/practice = 140,
-	/obj/item/ammo_magazine/a10mm/rubber = 80,
-	/obj/item/ammo_magazine/ammobox/a10mm/rubber = 300,
 	/obj/item/ammo_magazine/slmagnum/rubber = 100,
 	/obj/item/ammo_magazine/ammobox/magnum/rubber = 550,
 	/obj/item/ammo_magazine/slmagnum/practice = 50,
 	/obj/item/ammo_magazine/ammobox/magnum/practice = 225,
-	/obj/item/ammo_magazine/c10mm = 20,
-	/obj/item/ammo_magazine/ammobox/c10mm/rubber = 420,
 	/obj/item/weapon/storage/box/shotgunammo/beanbags = 800,
 	/obj/item/weapon/storage/box/shotgunammo/flashshells = 400,
 	/obj/item/weapon/storage/box/shotgunammo/blanks = 50,
@@ -1118,12 +1265,8 @@
 	/obj/item/ammo_magazine/hpistol = 180,
 	/obj/item/ammo_magazine/smg = 360,
 	/obj/item/ammo_magazine/ammobox/pistol = 300,
-	/obj/item/ammo_magazine/a10mm = 100,
-	/obj/item/ammo_magazine/ammobox/a10mm = 350,
 	/obj/item/ammo_magazine/slmagnum = 130,
 	/obj/item/ammo_magazine/ammobox/magnum = 500,
-	/obj/item/ammo_magazine/c10mm = 200,
-	/obj/item/ammo_magazine/ammobox/c10mm = 800,
 	/obj/item/weapon/storage/box/shotgunammo/slug = 800,
 	/obj/item/weapon/storage/box/shotgunammo/buckshot = 800,
 
@@ -1182,7 +1325,7 @@
 /obj/machinery/vending/cigarette
 	name = "Smooth Cigarettes" //OCD had to be uppercase to look nice with the new formating
 	desc = "If you want to get cancer, might as well do it in style!"
-	product_slogans = "Space cigs taste good like a cigarette should.;I'd rather toolbox than switch.;Smoke!;Don't believe the reports - smoke today!;Who belives in Cancer?;Cancer? Better get it in style!;I'm willing to bet you that those Scientists did not smoke Space Cigs!;Don't stop smoking now, You'll get fat!"
+	product_slogans = "Brand name cigarettes taste good like a cigarette should.;Don't believe the reports - smoke today!;Almost no negative side effects;Addiction? Better get it in style!;A brand for every man!;Don't stop smoking now, You'll get fat!"
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs.;Cigars avalible for premium customers.;Best taste in space!"
 	vend_delay = 34
 	icon_state = "cigs"
@@ -1365,9 +1508,11 @@
 					/obj/item/ammo_magazine/pistol/rubber = 8,
 					/obj/item/ammo_magazine/hpistol/rubber = 8,
 					/obj/item/ammo_magazine/smg/rubber = 8,
-					/obj/item/ammo_magazine/a10mm/rubber = 8,
+					/obj/item/ammo_magazine/lrifle_short/rubber = 8,
+					/obj/item/ammo_magazine/rifle/rubber = 8,
+					/obj/item/ammo_magazine/hrifle/rubber = 8,
+					/obj/item/ammo_magazine/magnum/rubber = 8,
 					/obj/item/ammo_magazine/slmagnum/rubber = 6,
-					/obj/item/ammo_magazine/magnum/rubber = 6,
 					/obj/item/weapon/storage/box/shotgunammo/beanbags = 2,
 					/obj/item/device/hailer = 8,
 					/obj/item/taperoll/police = 8,
@@ -1397,7 +1542,7 @@
 /obj/machinery/vending/hydroseeds
 	name = "MegaSeed Servitor"
 	desc = "When you need seeds fast!"
-	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!;Seeds? We got you covered.;Remember: Glowshrooms are bad for you.;I'm legally advised to tell you that Nettles are poisonous.;Grow food, but keep Ambrosia handy."
+	product_slogans = "This is where the seeds live, git you some!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!;Seeds? We got you covered.;Remember: Glowshrooms are bad for you.;I'm legally advised to tell you that Nettles are poisonous."
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!;Just like your ancestors!"
 	icon_state = "seeds"
 	always_open = TRUE
@@ -1483,6 +1628,8 @@
 					/obj/item/weapon/tool/knife = 6,
 					/obj/item/weapon/material/kitchen/utensil/spoon = 6,
 					/obj/item/weapon/tool/knife = 3,
+					/obj/item/weapon/material/kitchen/rollingpin = 3,
+					/obj/item/weapon/reagent_containers/glass/rag = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 8,
 					/obj/item/clothing/suit/rank/chef/classic = 2,
 					/obj/item/weapon/storage/lunchbox = 3,
@@ -1502,8 +1649,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/mug/brit = 3,
 					/obj/item/weapon/reagent_containers/food/drinks/mug/moebius = 3,
 					/obj/item/weapon/reagent_containers/food/drinks/mug/teacup = 10)
-	contraband = list(/obj/item/weapon/material/kitchen/rollingpin = 2,
-						/obj/item/weapon/tool/knife/butch = 2)
+	contraband = list(/obj/item/weapon/tool/knife/butch = 2)
 	auto_price = FALSE
 
 /obj/machinery/vending/sovietsoda
@@ -1541,13 +1687,13 @@
 	product_slogans = "Spare tools for your Engineering needs!;Forgot where we keep mesons again, didn't you?;Need a battery?;You need electronics? I got electronics."
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
-	products = list(/obj/item/clothing/glasses/powered/meson = 2,
-					/obj/item/weapon/tool/multitool = 4,
-					/obj/item/weapon/airlock_electronics = 10,
-					/obj/item/weapon/circuitboard/apc = 10,
-					/obj/item/weapon/airalarm_electronics = 10,
+	products = list(/obj/item/clothing/glasses/powered/meson = 10,
+					/obj/item/weapon/tool/multitool = 5,
+					/obj/item/weapon/airlock_electronics = 20,
+					/obj/item/weapon/circuitboard/apc = 20,
+					/obj/item/weapon/airalarm_electronics = 20,
 					/obj/item/weapon/cell/large/high = 10,
-					/obj/item/weapon/storage/belt/utility = 3)
+					/obj/item/weapon/storage/belt/utility = 5)
 	contraband = list(/obj/item/weapon/cell/large/potato = 3)
 	auto_price = FALSE
 
@@ -1752,9 +1898,11 @@
 					/obj/item/stack/medical/ointment = 8,
 					/obj/item/stack/medical/splint = 5,
 					/obj/item/stack/medical/advanced/bruise_pack = 4,
-					/obj/item/stack/medical/advanced/ointment = 4)
-	contraband = list(/obj/item/weapon/implant/core_implant/cruciform = 3,
-					/obj/item/weapon/tool/knife/neotritual = 3,
+					/obj/item/stack/medical/advanced/ointment = 4,
+					/obj/item/weapon/storage/pouch/small_generic = 2,
+					/obj/item/weapon/storage/pouch/medium_generic = 2,
+					/obj/item/weapon/storage/pouch/medical_supply = 2)
+	contraband = list(/obj/item/weapon/tool/knife/neotritual = 3,
 					/obj/item/weapon/gun/matter/launcher/nt_sprayer = 3)
 
 	prices = list(/obj/item/weapon/book/ritual/cruciform = 500,
@@ -1772,7 +1920,9 @@
 					/obj/item/stack/medical/splint = 200,
 					/obj/item/stack/medical/advanced/bruise_pack = 400,
 					/obj/item/stack/medical/advanced/ointment = 400,
-					/obj/item/weapon/implant/core_implant/cruciform = 1000,
+					/obj/item/weapon/storage/pouch/small_generic = 800,
+					/obj/item/weapon/storage/pouch/medium_generic = 1000,
+					/obj/item/weapon/storage/pouch/medical_supply = 600,
 					/obj/item/weapon/tool/knife/neotritual = 1000,
 					/obj/item/weapon/gun/matter/launcher/nt_sprayer = 1500)
 
@@ -1990,3 +2140,82 @@
 
 
 #undef CUSTOM_VENDOMAT_MODELS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

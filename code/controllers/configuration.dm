@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(storyteller_cache)
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 0					// allow ai job
 	var/hostedby = null
-	var/respawn_delay = 30
+	var/respawn_delay = 10
 	var/guest_jobban = 1
 	var/usewhitelist = 0
 	var/kick_inactive = 0				//force disconnect for inactive players after this many minutes, if non-0
@@ -129,6 +129,7 @@ GLOBAL_LIST_EMPTY(storyteller_cache)
 
 	var/welder_vision = 1
 	var/generate_asteroid = 1
+	var/admin_memo_system = 0
 	var/no_click_cooldown = 0
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
@@ -268,6 +269,9 @@ GLOBAL_LIST_EMPTY(storyteller_cache)
 
 				if ("ban_legacy_system")
 					config.ban_legacy_system = 1
+
+				if ("admin_memo_system")
+					config.admin_memo_system = 1
 
 				if ("use_recursive_explosions")
 					use_recursive_explosions = 1

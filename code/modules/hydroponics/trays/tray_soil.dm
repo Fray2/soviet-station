@@ -6,7 +6,6 @@
 	mechanical = 0
 	tray_light = 0
 
-/*
 /obj/machinery/portable_atmospherics/hydroponics/soil/attackby(var/obj/item/I, var/mob/user)
 	//You cant move soil with wrench
 	if((QUALITY_BOLT_TURNING in I.tool_qualities) && ((istype(I, /obj/item/weapon/tank) && !( src.destroyed ))))
@@ -14,7 +13,6 @@
 		return
 	else
 		..()
-*/
 
 /obj/machinery/portable_atmospherics/hydroponics/soil/New()
 	..()
@@ -26,20 +24,21 @@
 	return 1
 
 // Holder for vine plants.
-// Icons for plants are generated as overlays, so setting it to invisible wouldn't work.
+// Icons for plants are generated as over-lays, so setting it to invisible wouldn't work.
 // Hence using a blank icon.
 /obj/machinery/portable_atmospherics/hydroponics/soil/invisible
 	name = "plant"
 	icon = 'icons/obj/seeds.dmi'
 	icon_state = "blank"
 
-/obj/machinery/portable_atmospherics/hydroponics/soil/invisible/New(var/newloc,var/datum/seed/newseed)
+/obj/machinery/portable_atmospherics/hydroponics/soil/invisible/New(var/newloc,var/datum/seed/newseed=null)
 	..()
-	seed = newseed
-	dead = 0
-	age = 1
-	health = seed.get_trait(TRAIT_ENDURANCE)
-	lastcycle = world.time
+	if(newseed != null)
+		seed = newseed
+		dead = 0
+		age = 1
+		health = seed.get_trait(TRAIT_ENDURANCE)
+		lastcycle = world.time
 	pixel_y = rand(-5,5)
 	check_health()
 

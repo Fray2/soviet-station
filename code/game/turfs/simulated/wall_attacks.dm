@@ -45,8 +45,6 @@
 			dismantle_wall()
 			return 1
 
-	if(..()) return 1
-
 	if(!can_open)
 		to_chat(user, SPAN_NOTICE("You push the wall, but nothing happens."))
 		playsound(src, hitsound, 25, 1)
@@ -101,7 +99,8 @@
 		return
 
 	//get the user's location
-	if(!istype(user.loc, /turf))	return	//can't do this stuff whilst inside objects and such
+	if(!istype(user.loc, /turf))
+		return	//can't do this stuff whilst inside objects and such
 
 	if(I)
 		radiate()

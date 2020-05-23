@@ -400,6 +400,11 @@
 	inhibitors = list("sugar" = 1) // Messes up with inaprovaline
 	result_amount = 2
 
+/datum/chemical_reaction/bicaridine/blatteridine
+	result = "bicaridine"
+	required_reagents = list("inaprovaline" = 1, "blattedin" = 1)
+	result_amount = 2
+
 /datum/chemical_reaction/vermicetol
 	result = "vermicetol"
 	required_reagents = list("kelotane" = 1, "dermaline" = 1, "blattedin" = 1, "cryoxadone" = 0.5, "clonexadone" = 0.5)
@@ -1922,7 +1927,7 @@
 
 /datum/chemical_reaction/vomitol
 	result = "vomitol"
-	required_reagents = list("carbon" = 1, "sugar" = 1, "acetone" = 1)
+	required_reagents = list("carbon" = 1, "hclacid" = 1, "acetone" = 1)
 	result_amount = 3
 
 /datum/chemical_reaction/arectine
@@ -2142,4 +2147,9 @@
 /datum/chemical_reaction/drinks/balloon
 	result = "balloon"
 	required_reagents = list("cream" = 1, "bluecuracao" = 1)
+	result_amount = 2
+
+/datum/chemical_reaction/combat
+	result = "chemweapon1"
+	required_reagents = list("hydrazine" = 1, "cyanide" = 1, "potassium_chloride" = 1, "lexorin" = 1)
 	result_amount = 2

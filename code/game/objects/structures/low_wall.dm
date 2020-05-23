@@ -175,7 +175,7 @@
 
 	var/image/I
 
-	//Make the wall overlays
+	//Make the wall over-lays
 	for(var/i = 1 to 4)
 		I = image(icon, "[icon_state]_[connections[i]]", dir = 1<<(i-1))
 		I.color = wall_color
@@ -185,8 +185,6 @@
 	for (var/obj/structure/window/W in loc)
 		if (W.is_fulltile())
 			W.update_icon()
-
-
 
 
 	for(var/i = 1 to 4)
@@ -244,6 +242,7 @@
 
 			for(var/turf/simulated/wall/T in trange(1, src) - src)
 				T.update_connections()
+
 		return
 
 	//A list of directions to nearby low walls
@@ -268,6 +267,12 @@
 				T.update_connections()
 				T.update_icon()
 
+	for(var/obj/machinery/door/airlock/T in orange(src, 1))
+		if (!T.connected)
+			continue
+
+		var/T_dir = get_dir(src, T)
+		connection_dirs |= T_dir
 		//If this low wall is in a cardinal direction to us,
 		//then we will grab full walls that are cardinal to IT
 		//These walls all meet condition 2b
@@ -346,7 +351,7 @@
 		//Then we will upgrade the high wall connections to a cross too. this prevents some bugginess
 		if ((((i in list(CORNER_NORTHWEST, CORNER_SOUTHEAST)) && a == CORNER_CLOCKWISE) \
 		|| ((i in list(CORNER_NORTHEAST, CORNER_SOUTHWEST)) && a == CORNER_COUNTERCLOCKWISE)) \
-		&& b in list(5,7))
+		&& (b in list(5,7)))
 			//What a mess, all that determines whether a corner connects to only vertical.
 			//If its in the northwest or southeast corner, and its only connection is clockwise, then that connection is either up or down
 			//Ditto with the other check
@@ -387,7 +392,7 @@
 	var/tool_type = I.get_tool_type(user, list(QUALITY_WELDING), src)
 	switch(tool_type)
 		if(QUALITY_WELDING)
-			if (locate(/obj/structure/window in loc))
+			if (locate(/obj/structure/window) in loc)
 				to_chat(user, SPAN_NOTICE("You must remove the window mounted on this wall before it can be repaired or deconstructed"))
 				return
 			if(locate(/obj/effect/overlay/wallrot) in src)

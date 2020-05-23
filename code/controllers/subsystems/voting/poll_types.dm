@@ -4,7 +4,7 @@
 //////////////////////////////////////////////
 
 /datum/poll/restart
-	name = "End Round"
+	name = "Restart"
 	question = "End Shift?"
 	time = 60
 	choice_types = list(/datum/vote_choice/restart, /datum/vote_choice/countinue_round)
@@ -29,11 +29,11 @@
 
 
 /datum/vote_choice/restart
-	text = "End Shift"
+	text = "RESTART"
 
 /datum/vote_choice/restart/on_win()
-	to_chat(world, "<b><font size='3px'>The colony intercomm announces todays shift will be ending in fifteen minutes. Please finish up all tasks and return department equipment.<b>")
-	sleep(15 MINUTES)
+	to_chat(world, "<b><font size='3px'>The colony intercomm announces todays shift will be ending in 1 minutes. Please finish up all tasks and return department equipment.<b>")
+	sleep(1 MINUTES)
 	to_chat(world, "<b>Restarting world due to shift end...<b>")
 	sleep(50)
 	log_game("Rebooting due to restart vote")
@@ -167,13 +167,14 @@
 	Evacuate Ship
 **********************/
 /datum/poll/evac
-	name = "Evacuate Colony"
-	question = "Do you want to call evacuation and restart the round?"
-	time = 120
-	minimum_win_percentage = 0.6
-	cooldown = 20 MINUTES
-	next_vote = 90 MINUTES //Minimum round length before it can be called for the first time
+	name = "END SHIFT"
+	question = "Do you want to end shift and restart the round?"
+	time = 240
+	minimum_win_percentage = 0.5
+	cooldown = 45 MINUTES
+	next_vote = 150 MINUTES //Minimum round length before it can be called for the first time
 	choice_types = list()
+	only_admin = FALSE
 	description = "You will have more voting power if you are head of staff or antag, less if you are observing or dead."
 
 /*To prevent abuse and rule-by-salt, the evac vote weights each player's vote based on a few parameters
@@ -184,10 +185,10 @@
 #define VOTE_WEIGHT_LOW	0.3
 #define VOTE_WEIGHT_NORMAL	1
 #define VOTE_WEIGHT_HIGH	2
-#define MINIMUM_VOTE_LIFETIME	15 MINUTES
+#define MINIMUM_VOTE_LIFETIME	45 MINUTES
 /datum/poll/evac
 	choice_types = list(/datum/vote_choice/evac, /datum/vote_choice/noevac)
-	only_admin = TRUE
+	only_admin = FALSE
 	can_revote = TRUE
 	can_unvote = TRUE
 
@@ -198,7 +199,7 @@
 
 	var/mob/M = C.mob
 	if (!M || isghost(M) || isnewplayer(M) || ismouse(M) || isdrone(M))
-		return VOTE_WEIGHT_LOW
+		return VOTE_WEIGHT_NORMAL
 
 	var/datum/mind/mind = M.mind
 	if (!mind)
@@ -235,13 +236,13 @@
 #undef MINIMUM_VOTE_LIFETIME
 
 /datum/vote_choice/evac
-	text = "Abandon ship!"
+	text = "END SHIFT!!"
 
 /datum/vote_choice/evac/on_win()
 	evacuation_controller.call_evacuation(null, TRUE, TRUE, FALSE, TRUE)
 
 /datum/vote_choice/noevac
-	text = "Stay aboard"
+	text = "WORK!"
 
 
 

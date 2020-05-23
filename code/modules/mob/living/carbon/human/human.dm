@@ -145,13 +145,13 @@
 	if (bomb_defense)
 		b_loss = max(b_loss - bomb_defense, 0)
 		f_loss = max(f_loss - bomb_defense, 0)
-		
+
 	var/organ_hit = BP_CHEST //Chest is hit first
 	var/exp_damage
 	while (b_loss > 0)
 		b_loss -= exp_damage = rand(0, b_loss)
 		src.apply_damage(exp_damage, BRUTE, organ_hit)
-		organ_hit = pickweight(list(BP_HEAD = 0.2, BP_GROIN = 0.2, BP_R_ARM = 0.1, BP_L_ARM = 0.1, BP_R_LEG = 0.1, BP_L_LEG = 0.1))  //We determine some other body parts that should be hit 
+		organ_hit = pickweight(list(BP_HEAD = 0.2, BP_GROIN = 0.2, BP_R_ARM = 0.1, BP_L_ARM = 0.1, BP_R_LEG = 0.1, BP_L_LEG = 0.1))  //We determine some other body parts that should be hit
 
 /mob/living/carbon/human/restrained()
 	if (handcuffed)
@@ -253,6 +253,7 @@ var/list/rank_prefix = list(\
 	"Marshal Officer" = "Officer",\
 	"Ranger" = "Ranger",\
 	"Supply Specialist" = "Specialist",\
+	"Sergeant" = "Sergeant",\
 	"Marshal Warrant Officer" = "Warrant Officer",\
 	"Militia Commander" = "Commander",\
 	"Corpsman" = "Corpsman",\
@@ -674,10 +675,10 @@ var/list/rank_prefix = list(\
 
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
-	var/obj/item/organ/external/head/H = get_organ(BP_HEAD)
-	if(!H || !H.can_intake_reagents)
-		return 0
-	return 1
+	var/obj/item/organ/external/H = get_organ(BP_HEAD)
+	if(!H || !(H.functions & BODYPART_REAGENT_INTAKE))
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/human/vomit()
 
@@ -929,7 +930,7 @@ var/list/rank_prefix = list(\
 		if(!blood_DNA[M.dna.unique_enzymes])
 			blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
 	hand_blood_color = blood_color
-	src.update_inv_gloves()	//handles bloody hands overlays and updating
+	src.update_inv_gloves()	//handles bloody hands over-lays and updating
 	verbs += /mob/living/carbon/human/proc/bloody_doodle
 	return 1 //we applied blood to the item
 
@@ -967,32 +968,32 @@ var/list/rank_prefix = list(\
 
 	return
 
-/mob/living/carbon/human/get_visible_implants(var/class = 0)
-
+/mob/living/carbon/human/get_visible_implants()
 	var/list/visible_implants = list()
-	for(var/obj/item/organ/external/organ in src.organs)
-		for(var/obj/item/weapon/O in organ.implants)
-			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/material/shard/shrapnel))
-				visible_implants += O
 
-	return(visible_implants)
+	for(var/obj/item/organ/external/organ in organs)
+		for(var/obj/item/I in (organ.implants & organ.embedded))
+			visible_implants += I
+
+	return visible_implants
 
 /mob/living/carbon/human/embedded_needs_process()
-	for(var/obj/item/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in organs)
 		for(var/obj/item/O in organ.implants)
-			if(!istype(O, /obj/item/weapon/implant)) //implant type items do not cause embedding effects, see handle_embedded_objects()
-				return 1
-	return 0
+			if(is_sharp(O))	// Only sharp items can cause issues
+				return TRUE
+	return FALSE
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 
-	for(var/obj/item/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in organs)
 		if(organ.status & ORGAN_SPLINTED) //Splints prevent movement.
 			continue
+
 		for(var/obj/item/O in organ.implants)
-			if(!istype(O,/obj/item/weapon/implant) && prob(5)) //Moving with things stuck in you could be bad.
-				// All kinds of embedded objects cause bleeding.
-				if(species.flags & NO_PAIN)
+			// Shrapnel hurts when you move, and implanting knives is a bad idea
+			if(prob(5) && is_sharp(O))
+				if(!organ.can_feel_pain())
 					to_chat(src, SPAN_WARNING("You feel [O] moving inside your [organ.name]."))
 				else
 					var/msg = pick( \

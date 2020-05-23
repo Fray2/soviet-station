@@ -1143,7 +1143,6 @@ proc/is_hot(obj/item/W as obj)
 		else
 			return 0
 
-	return 0
 
 //Whether or not the given item counts as sharp in terms of dealing damage
 /proc/is_sharp(obj/O as obj)
@@ -1179,13 +1178,6 @@ proc/is_hot(obj/item/W as obj)
 	istype(W, /obj/item/weapon/tool/cautery)			||	\
 	istype(W, /obj/item/weapon/tool/bonesetter)
 	)
-
-//check if mob is lying down on something we can operate him on.
-/proc/can_operate(mob/living/carbon/M)
-	return (M.lying && \
-	locate(/obj/machinery/optable, M.loc) || \
-	(locate(/obj/structure/bed/roller, M.loc) && prob(75)) || \
-	(locate(/obj/structure/table/, M.loc) && prob(66)))
 
 /proc/reverse_direction(var/dir)
 	switch(dir)

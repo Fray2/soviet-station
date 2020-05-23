@@ -36,6 +36,23 @@
 	desc = "An armored vest with a ranger's badge on it."
 	icon_state = "armor_detective"
 
+/obj/item/clothing/suit/storage/rank/key_coat
+	name = "shearling coat"
+	desc = "A dark shearling coat When you're not performing your duties do they keep you in a little box? Cells."
+	icon_state = "key_coat"
+	item_state = "key_coat"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	armor = list(
+		melee = 45,
+		bullet = 40,
+		energy = 30,
+		bomb = 30,
+		bio = 0,
+		rad = 0
+	)
+	price_tag = 750
+
 /obj/item/clothing/suit/armor/vest/ironhammer
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has been done in marshal security colors. Not designed for serious operations."
@@ -306,7 +323,7 @@ obj/item/clothing/suit/armor/flackvest/commander
 	item_state = "flakvest_green"
 	blood_overlay_type = "armor"
 	slowdown = 0.2
-	armor = list(melee = 50, bullet = 55, energy = 30, bomb = 50, bio = 0, rad = 0)
+	armor = list(melee = 50, bullet = 60, energy = 30, bomb = 50, bio = 0, rad = 0)
 
 obj/item/clothing/suit/armor/commander
 	name = "commander's armored coat"
@@ -315,8 +332,7 @@ obj/item/clothing/suit/armor/commander
 	item_state = "commander"
 	blood_overlay_type = "coat"
 	permeability_coefficient = 0.50
-	armor = list(melee = 55, bullet = 60, energy = 30, bomb = 30, bio = 0, rad = 0)
-	slowdown = 0.2
+	armor = list(melee = 50, bullet = 50, energy = 25, bomb = 30, bio = 0, rad = 0)
 	body_parts_covered = UPPER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|ARMS
 	min_cold_protection_temperature = T0C - 20
@@ -333,6 +349,18 @@ obj/item/clothing/suit/armor/commander/militia_overcoat
 	desc = "Blackshield Milita greatcoat with kevlar weave and rank epaulettes. Worn in cold environments, guard duty or formal events."
 	icon_state = "overcoat_bm"
 	item_state = "overcoat_bm"
+
+obj/item/clothing/suit/armor/commander/marshal_coat
+	name= "marshal officers greatcoat"
+	desc= "marshal officer greatcoat with armor weave. Part of the formal uniform of the security marshals."
+	icon_state = "marshal_coat"
+	item_state = "marshal_coat"
+
+obj/item/clothing/suit/armor/commander/marshal_coat_ss
+	name= "supply specialist's greatcoat"
+	desc= "supply specialist's greatcoat with armor weave. Part of the formal uniform of the security marshals."
+	icon_state = "marshal_coat_ss"
+	item_state = "marshal_coat_ss"
 
 //Reactive armor
 

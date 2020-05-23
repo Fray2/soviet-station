@@ -113,7 +113,8 @@
 	if(lying) //Crawling, it's slower
 		. += 14 + (weakened)
 	. += move_intent.move_delay
-
+	if(facing_dir)
+		. += 2
 
 /mob/proc/Life()
 	SEND_SIGNAL(src, COMSIG_MOB_LIFE)
@@ -190,6 +191,11 @@
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Examine"
 	set category = "IC"
+
+	// No examining metaphysical things, please!
+	// These use a different proc for examining.
+	if(isHUDobj(A))
+		return 1
 
 	if((is_blind(src) || usr.stat) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
@@ -467,23 +473,31 @@
 
 	if(href_list["flavor_more"])
 		//if(src in view(usr)) //Flavor at any range
-		var/dat = {"
-			<html><head><title>[name]</title></head>
-			<body><tt>[replacetext(flavor_text, "\n", "<br>")]</tt></body>
-			</html>
-		"}
-		usr << browse(dat, "window=[name]_flavor;size=500x200")
-		onclose(usr, "[name]")
+		if(src in view(usr))
+			var/dat = {"
+				<html><head><title>[name]</title></head>
+				<body><tt>[replacetext(flavor_text, "\n", "<br>")]</tt></body>
+				</html>
+			"}
+			usr << browse(dat, "window=[name];size=500x200")
+			var/datum/browser/popup = new(usr, "[name]","[name]", 500, 200, src)
+			popup.set_content(dat)
+			popup.open()
+
 	if(href_list["flavor_change"])
 		update_flavor_text()
 	if(href_list["ooc_text"])
-		var/dat = {"
+		if(src in view(usr))
+			var/dat = {"
 				<html><head><title>[name]</title></head>
 				<body><tt>[replacetext(ooc_text, "\n", "<br>")]</tt></body>
 				</html>
 			"}
-		usr << browse(dat, "window=[name]_ooc;size=500x200")
-		onclose(usr, "[name]")
+			usr << browse(dat, "window=[name];size=500x200")
+			var/datum/browser/popup = new(usr, "[name]","[name]", 500, 200, src)
+			popup.set_content(dat)
+			popup.open()
+
 //	..()
 	return
 
@@ -497,8 +511,8 @@
 				if(e && H.lying)
 					if(((e.status & ORGAN_BROKEN && !(e.status & ORGAN_SPLINTED)) || e.status & ORGAN_BLEEDING) && (H.getBruteLoss() + H.getFireLoss() >= 100))
 						return 1
-						break
-		return 0
+		else
+			return 0
 
 /mob/MouseDrop(mob/M as mob)
 	..()
@@ -883,11 +897,10 @@ All Canmove setting in this proc is temporary. This var should not be set from h
 		flick("weak_pain", HUDtech["pain"])
 
 
-/mob/proc/get_visible_implants(var/class = 0)
+/mob/proc/get_visible_implants()
 	var/list/visible_implants = list()
 	for(var/obj/item/O in embedded)
-		if(O.w_class > class)
-			visible_implants += O
+		visible_implants += O
 	return visible_implants
 
 /mob/proc/embedded_needs_process()
@@ -919,7 +932,7 @@ mob/proc/yank_out_object()
 	if(S == U)
 		self = 1 // Removing object from yourself.
 
-	valid_objects = get_visible_implants(0)
+	valid_objects = get_visible_implants()
 	if(!valid_objects.len)
 		if(self)
 			to_chat(src, "You have nothing stuck in your body that is large enough to remove.")
@@ -943,7 +956,7 @@ mob/proc/yank_out_object()
 		visible_message("<span class='warning'><b>[src] rips [selection] out of their body.</b></span>","<span class='warning'><b>You rip [selection] out of your body.</b></span>")
 	else
 		visible_message("<span class='warning'><b>[usr] rips [selection] out of [src]'s body.</b></span>","<span class='warning'><b>[usr] rips [selection] out of your body.</b></span>")
-	valid_objects = get_visible_implants(0)
+	valid_objects = get_visible_implants()
 	if(valid_objects.len == 1) //Yanking out last object - removing verb.
 		src.verbs -= /mob/proc/yank_out_object
 
@@ -957,13 +970,9 @@ mob/proc/yank_out_object()
 					affected = organ
 
 		affected.implants -= selection
+		affected.embedded -= selection
 		H.shock_stage+=20
 		affected.take_damage((selection.w_class * 3), 0, 0, 1, "Embedded object extraction")
-
-		if(prob(selection.w_class * 5)) //I'M SO ANEMIC I COULD JUST -DIE-.
-			var/datum/wound/internal_bleeding/I = new (min(selection.w_class * 5, 15))
-			affected.wounds += I
-			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
 
 		if (ishuman(U))
 			var/mob/living/carbon/human/human_user = U

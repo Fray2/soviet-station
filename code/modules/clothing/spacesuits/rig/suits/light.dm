@@ -89,6 +89,7 @@
 		/obj/item/rig_module/electrowarfare_suite,
 		/obj/item/rig_module/voice,
 		/obj/item/rig_module/vision,
+		/obj/item/rig_module/storage
 		)
 
 //The cybersuit is not space-proof. It does however, have good siemens_coefficient values
@@ -110,7 +111,7 @@
 /obj/item/weapon/rig/light/ninja
 	name = "ominous suit control module"
 	suit_type = "ominous"
-	desc = "A unique, vaccum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
+	desc = "A unique, vaccum-proof suit of nano-enhanced armor designed specifically for assassins."
 	icon_state = "ninja_rig"
 	armor = list(
 		melee = 40,
@@ -140,7 +141,8 @@
 		/obj/item/rig_module/ai_container,
 		/obj/item/rig_module/power_sink,
 		/obj/item/rig_module/datajack,
-		/obj/item/rig_module/self_destruct
+		/obj/item/rig_module/self_destruct,
+		/obj/item/rig_module/storage
 		)
 
 /obj/item/clothing/gloves/rig/light/ninja
@@ -154,7 +156,7 @@
 	name = "stealth suit control module"
 	suit_type = "stealth"
 	desc = "A highly advanced and expensive suit designed for covert operations."
-	icon_state = "stealth_rig"
+	icon_state = "ninja_rig"
 
 	req_access = list(access_syndicate)
 

@@ -307,6 +307,10 @@
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return 1
 
+	if(world.time >= next_onfire_hal)
+		next_onfire_hal = world.time + 50
+		adjustHalLoss(fire_stacks*10 + 3)
+
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(fire_burn_temperature(), 50, 1)
 
@@ -331,7 +335,6 @@
 
 /mob/living/proc/reagent_permeability()
 	return 1
-	return round(FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE*(fire_stacks/FIRE_MAX_FIRESUIT_STACKS)**2)
 
 /mob/living/proc/handle_actions()
 	//Pretty bad, i'd use picked/dropped instead but the parent calls in these are nonexistent

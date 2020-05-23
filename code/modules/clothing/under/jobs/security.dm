@@ -110,6 +110,13 @@
 	siemens_coefficient = 0.8
 	body_parts_covered = 0
 
+/obj/item/clothing/under/rank/key_turtleneck
+	name = "black armored turtleneck"
+	desc = "A black armored turtleneck with some knaki pants. Did they teach you how to feel finger to finger? Interlinked."
+	icon_state = "key_turtleneck"
+	item_state = "key_turtleneck"
+	armor = list(melee = 15, bullet = 15, laser = 15,energy = 15, bomb = 0, bio = 0, rad = 0)
+
 /obj/item/clothing/head/rank/inspector/grey
 	icon_state = "detective2"
 	desc = "A grey fedora - either the cornerstone of a detective's style or a poor attempt at looking cool, depending on the person wearing it."
@@ -132,6 +139,13 @@
 /obj/item/clothing/head/rank/commander
 	name = "warrant officer's Hat"
 	desc = "The hat of the Warrant Officer. For showing the officers who's in charge."
+	icon_state = "hoshat"
+	body_parts_covered = 0
+	siemens_coefficient = 0.6
+
+/obj/item/clothing/head/rank/mcommander
+	name = "Commander's Hat"
+	desc = "The hat of the Militia Commander. Has a scent of napalm. Smells like victory."
 	icon_state = "hoshat"
 	body_parts_covered = 0
 	siemens_coefficient = 0.6

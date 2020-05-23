@@ -141,7 +141,7 @@
 			var/excavation_amount = input("How deep are you going to dig?", "Excavation depth", 0)
 			if(excavation_amount)
 				to_chat(user, SPAN_NOTICE("You start exacavating [src]."))
-				if(I.use_tool(user, src, WORKTIME_SLOW, tool_type, FAILCHANCE_NORMAL, required_stat = STAT_COG))
+				if(I.use_tool(user, src, WORKTIME_LONG, tool_type, FAILCHANCE_CHALLENGING, required_stat = STAT_COG))
 					to_chat(user, SPAN_NOTICE("You finish exacavating [src]."))
 					if(finds && finds.len)
 						var/datum/find/F = finds[1]
@@ -180,7 +180,7 @@
 
 					excavation_level += excavation_amount
 
-					//archaeo overlays
+					//archaeo over-lays
 					if(!archaeo_overlay && finds && finds.len)
 						var/datum/find/F = finds[1]
 						if(F.excavation_required <= excavation_level + F.view_range)
@@ -199,7 +199,7 @@
 						if(excavation_level - excavation_amount < 25)
 							update_excav_overlay = 1
 
-					//update overlays displaying excavation level
+					//update over-lays displaying excavation level
 					if( !(excav_overlay && excavation_level > 0) || update_excav_overlay )
 						var/excav_quadrant = round(excavation_level / 25) + 1
 						excav_overlay = "overlay_excv[excav_quadrant]_[rand(1,3)]"
@@ -221,7 +221,7 @@
 				//Chance to destroy / extract any finds here
 				fail_message = ". <b>[pick("There is a crunching noise [I] collides with some different rock.","Part of the rock face crumbles away.","Something breaks under [I].")]</b>"
 			to_chat(user, SPAN_NOTICE("You start digging the [src]. [fail_message ? fail_message : ""]"))
-			if(I.use_tool(user, src, WORKTIME_NORMAL, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_ROB))
+			if(I.use_tool(user, src, WORKTIME_LONG, tool_type, FAILCHANCE_CHALLENGING, required_stat = STAT_ROB))
 				to_chat(user, SPAN_NOTICE("You finish digging the [src]."))
 				if(fail_message && prob(90))
 					if(prob(25))

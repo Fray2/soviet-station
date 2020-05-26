@@ -108,3 +108,17 @@
 	head = /obj/item/clothing/head/rank/trooper/cap
 	gloves = /obj/item/clothing/gloves/thick/swat
 	backpack_contents = list(/obj/item/weapon/handcuffs = 1, /obj/item/device/lighting/toggleable/flashlight/seclite = 1, /obj/item/weapon/cell/small/high = 2, /obj/item/weapon/gun/energy/gun/martin = 1, /obj/item/weapon/tool/knife/tacknife = 1)
+
+/decl/hierarchy/outfit/job/security/marshal_cadet
+	name = OUTFIT_JOB_NAME("Marshal - Marshal Cadet")
+	l_pocket = /obj/item/device/flash
+	uniform = /obj/item/clothing/under/rank/security
+	gloves = /obj/item/clothing/gloves/thick
+	backpack_contents = list(/obj/item/weapon/handcuffs = 1, /obj/item/device/lighting/toggleable/flashlight/seclite = 1)
+
+/decl/hierarchy/outfit/job/security/blackbuckler
+	name = OUTFIT_JOB_NAME("Blackshield - Blackbuckler")
+	l_pocket = /obj/item/device/flash
+	uniform = /obj/item/clothing/under/rank/trooper
+	gloves = /obj/item/clothing/gloves/thick/swat
+	backpack_contents = list(/obj/item/weapon/handcuffs = 1, /obj/item/device/lighting/toggleable/flashlight/seclite = 1, /obj/item/weapon/tool/knife/tacknife = 1)

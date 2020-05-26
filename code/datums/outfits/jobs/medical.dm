@@ -52,3 +52,10 @@
 	l_hand = /obj/item/weapon/storage/firstaid/adv
 	belt = /obj/item/weapon/storage/belt/medical/emt
 	flags = OUTFIT_HAS_BACKPACK|OUTFIT_EXTENDED_SURVIVAL
+
+/decl/hierarchy/outfit/job/medical/medical_intern
+	name = OUTFIT_JOB_NAME("Soteria - Medical Intern")
+	uniform = /obj/item/clothing/under/rank/medical
+	suit = /obj/item/clothing/suit/storage/toggle/labcoat
+	l_hand = /obj/item/weapon/storage/firstaid
+	r_pocket = /obj/item/device/lighting/toggleable/flashlight/pen

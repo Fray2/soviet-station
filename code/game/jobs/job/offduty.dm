@@ -8,10 +8,10 @@
 	timeoff_factor = -1
 	total_positions = -1
 	faction = MAP_FACTION
-	department = "Civilian"
+	department = DEPARTMENT_CIVILIAN
 	supervisors = "nobody! Enjoy your time off"
 	selection_color = "#9b633e"
-	access = list(access_maint_tunnels)
+	access = list(access_maint_tunnels, access_external_airlocks)
 //	minimal_access = list(access_maint_tunnels)
 	outfit_type = /decl/hierarchy/outfit/job/assistant
 
@@ -30,10 +30,11 @@
 	timeoff_factor = -1
 	total_positions = -1
 	faction = MAP_FACTION
-	department = "Cargo"
+	department = DEPARTMENT_LSS
+	department_flag = CIVILIAN
 	supervisors = "nobody! Enjoy your time off"
 	selection_color = "#9b633e"
-	access = list(access_maint_tunnels)
+	access = list(access_maint_tunnels, access_external_airlocks)
 //	minimal_access = list(access_maint_tunnels)
 	outfit_type = /decl/hierarchy/outfit/job/assistant
 
@@ -49,7 +50,8 @@
 	timeoff_factor = -1
 	total_positions = -1
 	faction = MAP_FACTION
-	department = "Engineering"
+	department = DEPARTMENT_ENGINEERING
+	department_flag = CIVILIAN
 	supervisors = "nobody! Enjoy your time off"
 	selection_color = "#5B4D20"
 	access = list(access_maint_tunnels, access_external_airlocks, access_construction)
@@ -57,9 +59,10 @@
 	outfit_type = /decl/hierarchy/outfit/job/assistant
 
 	stat_modifiers = list(
-		STAT_TGH = 10,
 		STAT_MEC = 30,
-		STAT_COG = 15
+		STAT_COG = 15,
+		STAT_TGH = 10,
+		STAT_VIG = 10,
 	)
 
 /datum/job/offduty_medical
@@ -68,7 +71,8 @@
 	timeoff_factor = -1
 	total_positions = -1
 	faction = MAP_FACTION
-	department = "Medical"
+	department = DEPARTMENT_MEDICAL
+	department_flag = CIVILIAN
 	supervisors = "nobody! Enjoy your time off"
 	selection_color = "#013D3B"
 	access = list(access_maint_tunnels, access_external_airlocks)
@@ -76,22 +80,29 @@
 	outfit_type = /decl/hierarchy/outfit/job/assistant
 
 	stat_modifiers = list(
-		STAT_BIO = 15,
-		STAT_COG = 15,
+		STAT_BIO = 40,
+		STAT_COG = 10
 	)
 
-///datum/job/offduty_science
-//	title = "Off-duty Scientist"
-//	latejoin_only = TRUE
-//	timeoff_factor = -1
-//	total_positions = -1
-//	faction = MAP_FACTION
-//	department = "Science"
-//	supervisors = "nobody! Enjoy your time off"
-//	selection_color = "#633D63"
-//	access = list(access_maint_tunnels)
-////	minimal_access = list(access_maint_tunnels)
-//	outfit_type = /decl/hierarchy/outfit/job/assistant
+/datum/job/offduty_science
+	title = "Off-duty Scientist"
+	latejoin_only = TRUE
+	timeoff_factor = -1
+	total_positions = -1
+	faction = MAP_FACTION
+	department = DEPARTMENT_SCIENCE
+	department_flag = CIVILIAN
+	supervisors = "nobody! Enjoy your time off"
+	selection_color = "#633D63"
+	access = list(access_maint_tunnels)
+//	minimal_access = list(access_maint_tunnels, access_external_airlocks)
+	outfit_type = /decl/hierarchy/outfit/job/assistant
+
+	stat_modifiers = list(
+		STAT_MEC = 20,
+		STAT_COG = 30,
+		STAT_BIO = 20,
+	)
 
 /datum/job/offduty_security
 	title = "Off-duty Officer"
@@ -99,10 +110,11 @@
 	timeoff_factor = -1
 	total_positions = -1
 	faction = MAP_FACTION
-	department = "Security"
+	department = DEPARTMENT_SECURITY
+	department_flag = CIVILIAN
 	supervisors = "nobody! Enjoy your time off"
 	selection_color = "#601C1C"
-	access = list(access_maint_tunnels)
+	access = list(access_maint_tunnels, access_external_airlocks)
 //	minimal_access = list(access_maint_tunnels)
 	outfit_type = /decl/hierarchy/outfit/job/assistant
 
@@ -118,7 +130,8 @@
 	timeoff_factor = -1
 	total_positions = -1
 	faction = MAP_FACTION
-	department = "Command"
+	department = DEPARTMENT_COMMAND
+	department_flag = CIVILIAN
 	supervisors = "nobody! Enjoy your time off"
 	selection_color = "#2F2F7F"
 	access = list(access_maint_tunnels, access_external_airlocks)

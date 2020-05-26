@@ -23,3 +23,5 @@
 #define DEPARTMENT_CIVILIAN	"Civilian"
 #define DEPARTMENT_CHURCH	"Church"
 #define DEPARTMENT_PROSPECTOR "Prospectors"
+#define DEPARTMENT_NONSTATION "none"
+#define DEPARTMENT_SILICON "Station-Bound"

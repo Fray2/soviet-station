@@ -40,3 +40,11 @@
 /decl/hierarchy/outfit/job/science/roboticist/New()
 	..()
 	backpack_overrides.Cut()
+
+/decl/hierarchy/outfit/job/science/soteria_jr
+	l_ear = /obj/item/device/radio/headset/headset_sci
+	uniform = /obj/item/clothing/under/rank/scientist
+	suit = /obj/item/clothing/suit/storage/toggle/labcoat/science
+	shoes = /obj/item/clothing/shoes/jackboots
+	pda_type = /obj/item/modular_computer/pda/science/science
+	id_type = /obj/item/weapon/card/id/sci

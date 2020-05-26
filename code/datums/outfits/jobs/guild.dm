@@ -20,6 +20,11 @@
 	belt = /obj/item/weapon/storage/belt/utility
 	pda_type = /obj/item/modular_computer/pda/cargo
 
+/decl/hierarchy/outfit/job/cargo/junkrat
+	name = OUTFIT_JOB_NAME("Lonestar - Junkrat")
+	uniform = /obj/item/clothing/under/rank/cargotech
+	pda_type = /obj/item/modular_computer/pda/cargo
+
 /decl/hierarchy/outfit/job/cargo/mining
 	name = OUTFIT_JOB_NAME("Lonestar - Lonestar Miner")
 	uniform = /obj/item/clothing/under/rank/miner

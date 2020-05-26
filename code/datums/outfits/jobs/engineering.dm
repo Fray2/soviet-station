@@ -35,3 +35,9 @@
 	name = OUTFIT_JOB_NAME("Artificer - Adept Voidsuit")
 	mask = /obj/item/clothing/mask/breath
 	suit = /obj/item/clothing/suit/space/void/engineering
+
+/decl/hierarchy/outfit/job/engineering/guild_novice
+	name = OUTFIT_JOB_NAME("Artificer - Guild Novice")
+	uniform = /obj/item/clothing/under/rank/engineer
+	id_type = /obj/item/weapon/card/id/engie
+	pda_type = /obj/item/modular_computer/pda/engineering

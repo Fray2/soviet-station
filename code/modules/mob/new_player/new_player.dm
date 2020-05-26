@@ -295,33 +295,256 @@
 
 /mob/new_player/proc/LateChoices()
 	var/name = client.prefs.be_random_name ? "friend" : client.prefs.real_name
-
 	var/dat = "<html><body><center>"
 	dat += "<b>Welcome, [name].<br></b>"
 	dat += "Round Duration: [roundduration2text()]<br>"
 
 	if(evacuation_controller.has_evacuated()) //In case Nanotrasen decides reposess CentComm's shuttles.
-		dat += "<font color='red'><b>The vessel has been evacuated.</b></font><br>"
+		dat += "<font color='red'><b>Shift is over!</b></font><br>"
 	else if(evacuation_controller.is_evacuating())
 		if(evacuation_controller.emergency_evacuation) // Emergency shuttle is past the point of no recall
-			dat += "<font color='red'>The vessel is currently undergoing evacuation procedures.</font><br>"
+			dat += "<font color='red'>Soon the end of the shift!</font><br>"
 		else                                           // Crew transfer initiated
-			dat += "<font color='red'>The vessel is currently undergoing crew transfer procedures.</font><br>"
+			dat += "<font color='red'>Soon the end of the shift!</font><br>"
 
 	dat += "Choose from the following open/valid positions:<br>"
-	for(var/datum/job/job in SSjob.occupations)
-		if(job && IsJobAvailable(job.title))
-			if(job.is_restricted(client.prefs))
-				continue
-			var/active = 0
-			// Only players with the job assigned and AFK for less than 10 minutes count as active
-			for(var/mob/M in GLOB.player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 * 60 * 10)
-				active++
-			dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a><br>"
 
+	if(get_preference_value(/datum/client_preference/late_join_option) == "Standart" || get_preference_value(/datum/client_preference/late_join_option) == "NanoUI")
+		for(var/datum/job/job in SSjob.occupations)
+			if(job && IsJobAvailable(job.title))
+				if(job.is_restricted(client.prefs))
+					continue
+				if(!job.department)
+					continue
+				var/active = 0
+				// Only players with the job assigned and AFK for less than 10 minutes count as active
+				for(var/mob/M in GLOB.player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 * 60 * 10)
+					active++
+				dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a><br>"
+	else
+		var/list/command
+		command=new()
+		command.Add("<td>Command</td>")
+		var/list/civilian
+		civilian=new()
+		civilian.Add("<td>Civilian</td>")
+		var/list/security
+		security=new()
+		security.Add("<td>Security</td>")
+		var/list/engineering
+		engineering=new()
+		engineering.Add("<td>Artifiers Guild</td>")
+		var/list/medical
+		medical=new()
+		medical.Add("<td>Soteria Medical</td>")
+		var/list/science
+		science=new()
+		science.Add("<td>Soteria Science</td>")
+		var/list/nonstation
+		nonstation=new()
+		nonstation.Add("<td>Outsiders</td>")
+		var/list/church
+		church=new()
+		church.Add("<td>Church of Absolute</td>")
+		var/list/prospectors
+		prospectors=new()
+		prospectors.Add("<td>Prospectors</td>")
+		var/list/lss
+		lss=new()
+		lss.Add("<td>Lonestar</td>")
+		var/list/silicon
+		silicon=new()
+		silicon.Add("<td>Silicon</td>")
+		dat += "<table border=\"1\" align=\"center\">"
+		for(var/datum/job/job in SSjob.occupations)
+			if(job && IsJobAvailable(job.title))
+				if(job.is_restricted(client.prefs))
+					continue
+				if(!job.department)
+					continue
+				var/active = 0
+				// Only players with the job assigned and AFK for less than 10 minutes count as active
+				for(var/mob/M in GLOB.player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 * 60 * 10)
+					active++
+				switch(job.department)
+					if(DEPARTMENT_COMMAND)
+						command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_MEDICAL)
+						medical.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_ENGINEERING)
+						engineering.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_SCIENCE)
+						science.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_SECURITY)
+						security.Add( "<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_LSS)
+						lss.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_CIVILIAN)
+						civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_CHURCH)
+						church.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_PROSPECTOR)
+						prospectors.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_NONSTATION)
+						nonstation.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					if(DEPARTMENT_SILICON)
+						silicon.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==CIVILIAN)
+							civilian.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						if(job.department_flag==COMMAND)
+							command.Add("<td><a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a></td>")
+						continue
+					else
+						log_and_message_admins("Cannot add [job.title]")
+						continue
+				//dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [active])</a><br>"
+		var/maxlen=0
+		for(var/i=1, i<11, i++)
+			if(maxlen<command.len)
+				maxlen=command.len
+			if(maxlen<medical.len)
+				maxlen=medical.len
+			if(maxlen<engineering.len)
+				maxlen=engineering.len
+			if(maxlen<science.len)
+				maxlen=science.len
+			if(maxlen<security.len)
+				maxlen=security.len
+			if(maxlen<lss.len)
+				maxlen=lss.len
+			if(maxlen<civilian.len)
+				maxlen=civilian.len
+			if(maxlen<church.len)
+				maxlen=church.len
+			if(maxlen<prospectors.len)
+				maxlen=prospectors.len
+			if(maxlen<nonstation.len)
+				maxlen=nonstation.len
+			if(maxlen<silicon.len)
+				maxlen=silicon.len
+		if(command.len<maxlen)
+			var/temp = maxlen-command.len
+			for(var/i=1, i<temp, i++)
+				command.Add("<td> </td>")
+		if(medical.len<maxlen)
+			var/temp = maxlen-medical.len
+			for(var/i=1, i<temp, i++)
+				medical.Add("<td> </td>")
+		if(engineering.len<maxlen)
+			var/temp = maxlen-engineering.len
+			for(var/i=1, i<temp, i++)
+				engineering.Add("<td> </td>")
+		if(science.len<maxlen)
+			var/temp = maxlen-science.len
+			for(var/i=1, i<temp, i++)
+				science.Add("<td> </td>")
+		if(security.len<maxlen)
+			var/temp = maxlen-security.len
+			for(var/i=1, i<temp, i++)
+				security.Add("<td> </td>")
+		if(lss.len<maxlen)
+			var/temp = maxlen-lss.len
+			for(var/i=1, i<temp, i++)
+				lss.Add("<td> </td>")
+		if(civilian.len<maxlen)
+			var/temp = maxlen-civilian.len
+			for(var/i=1, i<temp, i++)
+				civilian.Add("<td> </td>")
+		if(church.len<maxlen)
+			var/temp = maxlen-church.len
+			for(var/i=1, i<temp, i++)
+				church.Add("<td> </td>")
+		if(prospectors.len<maxlen)
+			var/temp = maxlen-prospectors.len
+			for(var/i=1, i<temp, i++)
+				prospectors.Add("<td> </td>")
+		if(nonstation.len<maxlen)
+			var/temp = maxlen-nonstation.len
+			for(var/i=1, i<temp, i++)
+				nonstation.Add("<td> </td>")
+		if(silicon.len<maxlen)
+			var/temp = maxlen-silicon.len
+			for(var/i=1, i<temp, i++)
+				silicon.Add("<td> </td>")
+
+		for(var/i=1, i<maxlen, i++)
+			dat += "<tr>"
+			dat += "[command[i]]"
+			dat += "[civilian[i]]"
+			dat += "[security[i]]"
+			dat += "[engineering[i]]"
+			dat += "[medical[i]]"
+			dat += "[science[i]]"
+			dat += "[church[i]]"
+			dat += "[prospectors[i]]"
+			dat += "[lss[i]]"
+			dat += "[nonstation[i]]"
+			dat += "[silicon[i]]"
+			dat += "</tr>"
+		if(get_preference_value(/datum/client_preference/late_join_option) == "Old Style Table")
+			dat += "</tr>"
+			dat += "</table>"
+			dat += "</center>"
+			src << browse(dat, "window=latechoices;size=1200x800;can_close=1")
+		else
+			panel = new(src, "Join game","Join game", 2000, 800, src)
+			panel.set_window_options("can_close=1")
+			panel.set_content(dat)
+			panel.open()
 	dat += "</center>"
-	src << browse(dat, "window=latechoices;size=400x640;can_close=1")
-
+	if(get_preference_value(/datum/client_preference/late_join_option) == "NanoUI")
+		panel = new(src, "Join game","Join game", 400, 640, src)
+		panel.set_window_options("can_close=1")
+		panel.set_content(dat)
+		panel.open()
+	else
+		src << browse(dat, "window=latechoices;size=400x640;can_close=1")
 
 /mob/new_player/proc/create_character()
 	spawning = 1
@@ -421,6 +644,8 @@
 /mob/new_player/proc/close_spawn_windows()
 	src << browse(null, "window=latechoices") //closes late choices window
 	panel.close()
+	if(get_preference_value(/datum/client_preference/late_join_option) == "NanoUI" || get_preference_value(/datum/client_preference/late_join_option) == "NanoUI Table")
+		panel.close()
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
@@ -458,3 +683,9 @@
 
 mob/new_player/MayRespawn()
 	return 1
+
+/datum/client_preference/late_join_option
+	description = "Late join style"
+	key = "LATE_JOIN_OPTION"
+	options = list("NanoUI", "Standart", "Old Style Table")
+	//options = list("NanoUI", "Standart", "Old Style Table", "NanoUI Table")

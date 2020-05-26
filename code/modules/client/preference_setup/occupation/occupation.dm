@@ -92,8 +92,16 @@
 	. += "<table width='100%' cellpadding='1' cellspacing='0'>"
 
 	var/index = -1
+	var/truelen = 0
+	for(var/datum/job/job in SSjob.occupations)
+		if(job.latejoin_only) continue
+		truelen = truelen+1
+	/*
 	if(splitLimit)
 		limit = round((SSjob.occupations.len+1)/2)
+	*/
+	if(splitLimit)
+		limit = round((truelen+1)/2)
 
 	//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 	var/datum/job/lastJob

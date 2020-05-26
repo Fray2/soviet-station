@@ -24,3 +24,8 @@
 	uniform = /obj/item/clothing/under/rank/acolyte
 	shoes = /obj/item/clothing/shoes/reinforced
 	gloves = /obj/item/clothing/gloves/thick
+
+/decl/hierarchy/outfit/job/church
+	name = OUTFIT_JOB_NAME("Church - Novitiate")
+	id_type = /obj/item/weapon/card/id/church
+	pda_type = /obj/item/modular_computer/pda/church

@@ -126,7 +126,7 @@
 		STAT_VIG = 5,
 	)
 
-/datum/job/trainee/church_novitiate			//Church Novitiate
+/* /datum/job/trainee/church_novitiate			//Church Novitiate
 	title = "Church Novitiate"
 	department = DEPARTMENT_CHURCH
 	department_flag = CHURCH
@@ -142,7 +142,7 @@
 	STAT_VIG = 5,
 	STAT_TGH = 2,
 	)
-
+*/
 /datum/job/trainee/lss_junkrat				//Lonestar Junkrat
 	title = "Lonestar Junkrat"
 	department = DEPARTMENT_LSS

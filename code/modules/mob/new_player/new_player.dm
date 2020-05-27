@@ -124,6 +124,7 @@
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/turf/T = pick_spawn_location("Observer")
+			panel.close()
 			if(istype(T))
 				to_chat(src, SPAN_NOTICE("You are observer now."))
 				observer.forceMove(T)
@@ -177,7 +178,7 @@
 		show_manifest(src, nano_state = GLOB.interactive_state)
 
 	if(href_list["SelectedJob"])
-
+		panel.close()
 		if(!config.enter_allowed)
 			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 			return
@@ -253,6 +254,7 @@
 	SSjob.AssignRole(src, rank, 1)
 	var/datum/job/job = src.mind.assigned_job
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
+	panel.close()
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(rank == "AI")
@@ -644,8 +646,6 @@
 /mob/new_player/proc/close_spawn_windows()
 	src << browse(null, "window=latechoices") //closes late choices window
 	panel.close()
-	if(get_preference_value(/datum/client_preference/late_join_option) == "NanoUI" || get_preference_value(/datum/client_preference/late_join_option) == "NanoUI Table")
-		panel.close()
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
@@ -687,5 +687,5 @@ mob/new_player/MayRespawn()
 /datum/client_preference/late_join_option
 	description = "Late join style"
 	key = "LATE_JOIN_OPTION"
-	options = list("NanoUI", "Standart", "Old Style Table")
+	options = list("Standart", "Old Style Table")
 	//options = list("NanoUI", "Standart", "Old Style Table", "NanoUI Table")

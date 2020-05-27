@@ -115,8 +115,9 @@
 	faction = MAP_FACTION
 	description = "Чините стены и кофеварки, пока старшие не доверят вам что-то серьёзнее. Не трогайте суперматерию, серьезно."
 	access = list(
-		access_eva, access_engine_equip, access_maint_tunnels,
-		access_external_airlocks, access_construction, access_atmospherics)
+		access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
+		access_external_airlocks, access_construction, access_atmospherics
+	)
 	selection_color = "#d5c88f"
 	outfit_type = /decl/hierarchy/outfit/job/engineering/guild_novice
 	stat_modifiers = list(
